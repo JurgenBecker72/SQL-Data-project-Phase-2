@@ -3,6 +3,7 @@
 
 ![Phase 2 Analytics Dashboard](phase2_dashboard.svg)
 
+
 > 📄 **[Download full Phase 2 Analytics Infographic (PDF)](SQL_Phase2_Dashboard_v4.pdf)**
 
 ---
