@@ -35,7 +35,7 @@
     letter-spacing:.12em;color:var(--muted);margin-bottom:14px;
     padding-bottom:8px;border-bottom:1px solid var(--border);}
 
-  .projects{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;}
+  .projects{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:32px;}
   .card{background:#fff;border:1px solid var(--border);border-radius:12px;
     overflow:hidden;display:flex;flex-direction:column;
     transition:box-shadow .2s,transform .2s;}
@@ -91,7 +91,6 @@
 
   @media(max-width:700px){
     header{flex-direction:column;}.header-right{text-align:left;}
-    .projects{grid-template-columns:1fr;}
     .card-wide .card-body{grid-template-columns:1fr;}
     .skills-grid{grid-template-columns:1fr 1fr;}
   }
@@ -103,7 +102,7 @@
   <header>
     <div class="header-left">
       <h1>Portfolio of Evidence<br><span>Data Analytics &amp; SQL Projects</span></h1>
-      <p>End-to-end SQL analysis projects covering relational databases, business intelligence, customer segmentation, and psychometric assessment validation.</p>
+      <p>End-to-end SQL analysis of a scale model car retailer using stores.db — covering inventory management, customer segmentation, sales rep performance, and revenue trends. Phase 1 &amp; 2.</p>
     </div>
     <div class="header-right">
       <div class="org">AX Consult Group</div>
@@ -112,7 +111,7 @@
     </div>
   </header>
 
-  <div class="section-label">SQL Analysis Projects</div>
+  <div class="section-label">SQL Analysis &mdash; Scale Model Car Store (stores.db)</div>
   <div class="projects">
 
     <div class="card">
@@ -126,32 +125,32 @@
       <div class="card-body">
         <p class="card-desc">Two-phase SQL analysis of a scale model car retailer. Phase 1 covers inventory health and VIP customer identification. Phase 2 extends to sales rep performance, revenue trends, and customer segmentation.</p>
         <div class="file-list">
-          <a class="file-link" href="PROJECT 1 sales/stores_analysis_notebook.md">
+          <a class="file-link" href="PROJECT 1 sales/Phase 1/stores_analysis_notebook.md">
             <span class="file-icon fi-md">MD</span>
             <span class="file-name">Phase 1 Notebook</span>
             <span class="file-desc">Inventory &amp; customers</span>
           </a>
-          <a class="file-link" href="PROJECT 1 sales/phase2_advanced_analytics_notebook.md">
+          <a class="file-link" href="PROJECT 1 sales/Phase 2/phase2_advanced_analytics_notebook.md">
             <span class="file-icon fi-md">MD</span>
             <span class="file-name">Phase 2 Notebook</span>
             <span class="file-desc">Reps, trends &amp; segmentation</span>
           </a>
-          <a class="file-link" href="PROJECT 1 sales/dashboard.html">
+          <a class="file-link" href="PROJECT 1 sales/Phase 2/dashboard.html">
             <span class="file-icon fi-html">HTML</span>
             <span class="file-name">Interactive Dashboard</span>
             <span class="file-desc">Phase 2 findings</span>
           </a>
-          <a class="file-link" href="SQL_Phase2_Dashboard_v4.pdf">
+          <a class="file-link" href="PROJECT 1 sales/Phase 2/SQL_Phase2_Dashboard_v4.pdf">
             <span class="file-icon fi-pdf">PDF</span>
             <span class="file-name">Phase 2 Analytics Infographic</span>
             <span class="file-desc">Office · Revenue · Segments · Churn</span>
           </a>
-          <a class="file-link" href="PROJECT 1 sales/stores_analysis.sql">
+          <a class="file-link" href="PROJECT 1 sales/Phase 1/stores_analysis.sql">
             <span class="file-icon fi-sql">SQL</span>
             <span class="file-name">Phase 1 Queries</span>
             <span class="file-desc">stores_analysis.sql</span>
           </a>
-          <a class="file-link" href="PROJECT 1 sales/phase2_advanced_analytics.sql">
+          <a class="file-link" href="PROJECT 1 sales/Phase 2/phase2_advanced_analytics.sql">
             <span class="file-icon fi-sql">SQL</span>
             <span class="file-name">Phase 2 Queries</span>
             <span class="file-desc">phase2_advanced_analytics.sql</span>
@@ -161,41 +160,6 @@
           <span class="pill">JOINs (5-table)</span><span class="pill">CTEs</span>
           <span class="pill">Self-join</span><span class="pill">CASE WHEN</span>
           <span class="pill">strftime()</span><span class="pill">HAVING</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">&#127757;</div>
-        <div>
-          <div class="card-tag">Project 2 &middot; SQLite &middot; Python</div>
-          <div class="card-title">Northwind Database<br>SQL &amp; Python Analysis</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-desc">Exploratory SQL and Python analysis of the classic Northwind trading database. Covers order analytics, supplier performance, and regional sales patterns using Jupyter notebooks and SQL queries.</p>
-        <div class="file-list">
-          <a class="file-link" href="PROJECT 2 northwind/northwind project-1.ipynb">
-            <span class="file-icon fi-ipynb">PY</span>
-            <span class="file-name">Jupyter Notebook</span>
-            <span class="file-desc">Full Python + SQL analysis</span>
-          </a>
-          <a class="file-link" href="PROJECT 2 northwind/northwind.sql">
-            <span class="file-icon fi-sql">SQL</span>
-            <span class="file-name">SQL Queries</span>
-            <span class="file-desc">northwind.sql</span>
-          </a>
-          <a class="file-link" href="PROJECT 2 northwind/ER.png">
-            <span class="file-icon fi-svg">ER</span>
-            <span class="file-name">Entity Relationship Diagram</span>
-            <span class="file-desc">Full Northwind schema</span>
-          </a>
-        </div>
-        <div class="techniques">
-          <span class="pill">Pandas</span><span class="pill">Matplotlib</span>
-          <span class="pill">GROUP BY</span><span class="pill">Jupyter</span>
-          <span class="pill">SQLite</span>
         </div>
       </div>
     </div>
