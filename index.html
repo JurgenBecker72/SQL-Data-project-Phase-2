@@ -40,10 +40,7 @@
     overflow:hidden;display:flex;flex-direction:column;
     transition:box-shadow .2s,transform .2s;}
   .card:hover{box-shadow:0 6px 24px rgba(13,33,55,.12);transform:translateY(-2px);}
-  .card-header{background:var(--navy);padding:18px 22px 14px;
-    display:flex;align-items:flex-start;gap:14px;}
-  .card-icon{width:38px;height:38px;border-radius:8px;background:var(--b1);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+  .card-header{background:var(--navy);padding:18px 22px 14px;}
   .card-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;
     letter-spacing:.1em;color:var(--b5);margin-bottom:3px;}
   .card-title{font-family:"Lora",serif;font-size:15px;font-weight:400;
@@ -52,22 +49,12 @@
   .card-desc{font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
 
   .file-list{display:flex;flex-direction:column;gap:7px;}
-  .file-link{display:flex;align-items:center;gap:10px;padding:8px 12px;
-    border-radius:7px;background:var(--btint);border:1px solid var(--border);
-    font-size:12px;color:var(--text);transition:background .15s,border-color .15s;
-    text-decoration:none;}
+  .file-link{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;border-radius:7px;background:var(--btint);
+    border:1px solid var(--border);font-size:12.5px;color:var(--text);
+    transition:background .15s,border-color .15s;text-decoration:none;}
   .file-link:hover{background:#d4e8f8;border-color:var(--b4);text-decoration:none;}
-  .file-icon{width:22px;height:22px;border-radius:5px;display:flex;
-    align-items:center;justify-content:center;font-size:11px;
-    flex-shrink:0;font-weight:700;}
-  .fi-sql{background:var(--navy);color:#fff;}
-  .fi-html{background:var(--b1);color:#fff;}
-  .fi-md{background:var(--b3);color:#fff;}
-  .fi-svg{background:var(--b4);color:#fff;}
-  .fi-py{background:#2d6a4f;color:#fff;}
-  .fi-ipynb{background:#e76f51;color:#fff;}
-  .fi-pdf{background:#c1121f;color:#fff;}
-  .file-name{flex:1;font-weight:500;}
+  .file-name{font-weight:500;color:var(--navy);}
   .file-desc{font-size:11px;color:var(--muted);}
 
   .techniques{margin-top:14px;display:flex;flex-wrap:wrap;gap:5px;}
@@ -116,43 +103,22 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-icon">&#128432;</div>
-        <div>
-          <div class="card-tag">Project 1 &middot; SQLite</div>
-          <div class="card-title">Scale Model Car Store<br>SQL Analysis &mdash; Phase 1 &amp; 2</div>
-        </div>
+        <div class="card-tag">Project 1 &middot; SQLite</div>
+        <div class="card-title">Scale Model Car Store &mdash; Phase 1 &amp; 2</div>
       </div>
       <div class="card-body">
         <p class="card-desc">Two-phase SQL analysis of a scale model car retailer. Phase 1 covers inventory health and VIP customer identification. Phase 2 extends to sales rep performance, revenue trends, and customer segmentation.</p>
         <div class="file-list">
-          <a class="file-link" href="stores_analysis_notebook.md">
-            <span class="file-icon fi-md">MD</span>
-            <span class="file-name">Phase 1 Notebook</span>
-            <span class="file-desc">Inventory &amp; customers</span>
-          </a>
           <a class="file-link" href="phase2_advanced_analytics_notebook.md">
-            <span class="file-icon fi-md">MD</span>
             <span class="file-name">Phase 2 Notebook</span>
             <span class="file-desc">Reps, trends &amp; segmentation</span>
           </a>
-          <a class="file-link" href="dashboard.html">
-            <span class="file-icon fi-html">HTML</span>
-            <span class="file-name">Interactive Dashboard</span>
-            <span class="file-desc">Phase 2 findings</span>
-          </a>
           <a class="file-link" href="SQL_Phase2_Dashboard_v4.pdf">
-            <span class="file-icon fi-pdf">PDF</span>
             <span class="file-name">Phase 2 Analytics Infographic</span>
-            <span class="file-desc">Office · Revenue · Segments · Churn</span>
-          </a>
-          <a class="file-link" href="stores_analysis.sql">
-            <span class="file-icon fi-sql">SQL</span>
-            <span class="file-name">Phase 1 Queries</span>
-            <span class="file-desc">stores_analysis.sql</span>
+            <span class="file-desc">Office &middot; Revenue &middot; Segments &middot; Churn</span>
           </a>
           <a class="file-link" href="phase2_advanced_analytics.sql">
-            <span class="file-icon fi-sql">SQL</span>
-            <span class="file-name">Phase 2 Queries</span>
+            <span class="file-name">Phase 2 SQL Queries</span>
             <span class="file-desc">phase2_advanced_analytics.sql</span>
           </a>
         </div>
@@ -169,11 +135,8 @@
   <div class="section-label">Assessment &amp; Validation Research</div>
   <div class="card-wide">
     <div class="card-header">
-      <div class="card-icon">&#128202;</div>
-      <div>
-        <div class="card-tag">Psychometric Research &middot; Phase 1 Pilot</div>
-        <div class="card-title">Business Manager Selection Assessment &mdash; Validation Study</div>
-      </div>
+      <div class="card-tag">Psychometric Research &middot; Phase 1 Pilot</div>
+      <div class="card-title">Business Manager Selection Assessment &mdash; Validation Study</div>
     </div>
     <div class="card-body">
       <div>
@@ -186,7 +149,6 @@
       </div>
       <div class="file-list">
         <a class="file-link" href="BM_Assessment_Full_Analysis.pdf">
-          <span class="file-icon fi-pdf">PDF</span>
           <span class="file-name">Full Analysis Report</span>
           <span class="file-desc">BM_Assessment_Full_Analysis.pdf</span>
         </a>

@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 980" width="1400" height="980" font-family="Segoe UI, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="1400" height="980" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="700" y="48" text-anchor="middle" font-size="26" font-weight="bold" fill="#1a1a2e">Scale Model Car Store — SQL Analysis Project</text>
+  <text x="700" y="76" text-anchor="middle" font-size="15" fill="#555">Design Overview · Phase 1 &amp; Phase 2</text>
+
+  <!-- ── DATABASE BOX ── -->
+  <rect x="560" y="105" width="280" height="80" rx="10" fill="#1a1a2e"/>
+  <text x="700" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">🗄  stores.db</text>
+  <text x="700" y="157" text-anchor="middle" font-size="12" fill="#aab4c8">SQLite · 8 tables · ~4,100 rows</text>
+  <text x="700" y="175" text-anchor="middle" font-size="11" fill="#7a8aaa">customers · orders · products · employees · offices · payments · orderdetails · productlines</text>
+
+  <!-- Arrow down from DB -->
+  <line x1="700" y1="185" x2="700" y2="218" stroke="#999" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Connector line from DB to phases -->
+  <line x1="330" y1="218" x2="330" y2="205" stroke="#2d6a4f" stroke-width="2"/>
+  <line x1="330" y1="205" x2="1080" y2="205" stroke="#999" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="1080" y1="205" x2="1080" y2="218" stroke="#1d3557" stroke-width="2"/>
+
+  <!-- ── PHASE LABEL ROW ── -->
+  <!-- Phase 1 label -->
+  <rect x="80" y="218" width="500" height="36" rx="8" fill="#2d6a4f"/>
+  <text x="330" y="242" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">Phase 1 — Sales Strategy</text>
+
+  <!-- Phase 2 label -->
+  <rect x="820" y="218" width="520" height="36" rx="8" fill="#1d3557"/>
+  <text x="1080" y="242" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">Phase 2 — Advanced Analytics</text>
+
+  <!-- ── PHASE 1 ANALYSIS CARDS ── -->
+
+  <!-- Card 1: DB Overview -->
+  <rect x="80" y="276" width="160" height="100" rx="8" fill="#fff" stroke="#2d6a4f" stroke-width="1.5"/>
+  <rect x="80" y="276" width="160" height="28" rx="8" fill="#2d6a4f"/>
+  <rect x="80" y="292" width="160" height="12" fill="#2d6a4f"/>
+  <text x="160" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Database Overview</text>
+  <text x="160" y="320" text-anchor="middle" font-size="11" fill="#333">UNION ALL · PRAGMA</text>
+  <text x="160" y="337" text-anchor="middle" font-size="11" fill="#333">Table summary:</text>
+  <text x="160" y="352" text-anchor="middle" font-size="11" fill="#333">8 tables · rows · columns</text>
+
+  <!-- Card 2: Low Stock -->
+  <rect x="250" y="276" width="160" height="100" rx="8" fill="#fff" stroke="#2d6a4f" stroke-width="1.5"/>
+  <rect x="250" y="276" width="160" height="28" rx="8" fill="#2d6a4f"/>
+  <rect x="250" y="292" width="160" height="12" fill="#2d6a4f"/>
+  <text x="330" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Inventory Analysis</text>
+  <text x="330" y="320" text-anchor="middle" font-size="11" fill="#333">Correlated subquery · CTE</text>
+  <text x="330" y="337" text-anchor="middle" font-size="11" fill="#333">Low stock ratio · Priority</text>
+  <text x="330" y="352" text-anchor="middle" font-size="11" fill="#333">restock list (top 10)</text>
+
+  <!-- Card 3: VIP Customers -->
+  <rect x="420" y="276" width="160" height="100" rx="8" fill="#fff" stroke="#2d6a4f" stroke-width="1.5"/>
+  <rect x="420" y="276" width="160" height="28" rx="8" fill="#2d6a4f"/>
+  <rect x="420" y="292" width="160" height="12" fill="#2d6a4f"/>
+  <text x="500" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">VIP Customer Analysis</text>
+  <text x="500" y="320" text-anchor="middle" font-size="11" fill="#333">Multi-table JOIN · SUM</text>
+  <text x="500" y="337" text-anchor="middle" font-size="11" fill="#333">Profit per customer ·</text>
+  <text x="500" y="352" text-anchor="middle" font-size="11" fill="#333">Top 10 ranked</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- ── KEY SQL SKILLS BUBBLE (centre column) ──          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+
+  <!-- Connector dashes: bubble ↔ Phase 1 right edge -->
+  <line x1="580" y1="375" x2="592" y2="375" stroke="#7c6fff" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Connector dashes: bubble ↔ Phase 2 left edge -->
+  <line x1="808" y1="375" x2="820" y2="375" stroke="#7c6fff" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Bubble border + header -->
+  <rect x="592" y="292" width="216" height="215" rx="12" fill="#fafaff" stroke="#7c6fff" stroke-width="2"/>
+  <rect x="592" y="292" width="216" height="34" rx="12" fill="#7c6fff"/>
+  <rect x="592" y="310" width="216" height="16" fill="#7c6fff"/>
+  <text x="700" y="314" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">🔑 Key SQL Skills</text>
+
+  <!-- Skill rows -->
+  <text x="700" y="345" text-anchor="middle" font-size="10.5" fill="#2d2d50">Multi-table JOINs · Self-JOIN</text>
+  <text x="700" y="362" text-anchor="middle" font-size="10.5" fill="#2d2d50">UNION ALL · Subqueries</text>
+  <text x="700" y="379" text-anchor="middle" font-size="10.5" fill="#2d2d50">WITH (CTE) · Correlated Subquery</text>
+  <text x="700" y="396" text-anchor="middle" font-size="10.5" fill="#2d2d50">CASE WHEN · HAVING</text>
+  <text x="700" y="413" text-anchor="middle" font-size="10.5" fill="#2d2d50">strftime() · julianday()</text>
+  <text x="700" y="430" text-anchor="middle" font-size="10.5" fill="#2d2d50">GROUP BY · Aggregations</text>
+  <text x="700" y="447" text-anchor="middle" font-size="10.5" fill="#2d2d50">PRAGMA · Metadata · sqlite3</text>
+  <!-- subtle footer label -->
+  <text x="700" y="469" text-anchor="middle" font-size="9" fill="#9a8aee" font-style="italic">applied across both phases</text>
+
+  <!-- ── PHASE 2 ANALYSIS CARDS ── -->
+
+  <!-- Card 4: Sales Rep Performance -->
+  <rect x="830" y="276" width="200" height="100" rx="8" fill="#fff" stroke="#1d3557" stroke-width="1.5"/>
+  <rect x="830" y="276" width="200" height="28" rx="8" fill="#1d3557"/>
+  <rect x="830" y="292" width="200" height="12" fill="#1d3557"/>
+  <text x="930" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Sales Rep Performance</text>
+  <text x="930" y="320" text-anchor="middle" font-size="11" fill="#333">Self-join · 5-table JOIN</text>
+  <text x="930" y="337" text-anchor="middle" font-size="11" fill="#333">Rep profit · Org chart ·</text>
+  <text x="930" y="352" text-anchor="middle" font-size="11" fill="#333">Office performance</text>
+
+  <!-- Card 5: Revenue Trends -->
+  <rect x="1050" y="276" width="200" height="100" rx="8" fill="#fff" stroke="#1d3557" stroke-width="1.5"/>
+  <rect x="1050" y="276" width="200" height="28" rx="8" fill="#1d3557"/>
+  <rect x="1050" y="292" width="200" height="12" fill="#1d3557"/>
+  <text x="1150" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Revenue Trends</text>
+  <text x="1150" y="320" text-anchor="middle" font-size="11" fill="#333">strftime() · julianday()</text>
+  <text x="1150" y="337" text-anchor="middle" font-size="11" fill="#333">Monthly revenue ·</text>
+  <text x="1150" y="352" text-anchor="middle" font-size="11" fill="#333">Product line trends</text>
+
+  <!-- Card 6: Customer Segmentation -->
+  <rect x="940" y="400" width="200" height="100" rx="8" fill="#fff" stroke="#1d3557" stroke-width="1.5"/>
+  <rect x="940" y="400" width="200" height="28" rx="8" fill="#1d3557"/>
+  <rect x="940" y="416" width="200" height="12" fill="#1d3557"/>
+  <text x="1040" y="419" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Customer Segmentation</text>
+  <text x="1040" y="444" text-anchor="middle" font-size="11" fill="#333">CASE WHEN · CTE · HAVING</text>
+  <text x="1040" y="461" text-anchor="middle" font-size="11" fill="#333">Platinum/Gold/Silver/Bronze</text>
+  <text x="1040" y="478" text-anchor="middle" font-size="11" fill="#333">Churn risk identification</text>
+
+  <!-- Arrow from card 4 down to seg -->
+  <line x1="930" y1="376" x2="930" y2="393" stroke="#1d3557" stroke-width="1.5"/>
+  <line x1="930" y1="393" x2="1040" y2="393" stroke="#1d3557" stroke-width="1.5"/>
+  <line x1="1040" y1="393" x2="1040" y2="400" stroke="#1d3557" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <!-- Arrow from card 5 down to seg -->
+  <line x1="1150" y1="376" x2="1150" y2="393" stroke="#1d3557" stroke-width="1.5"/>
+  <line x1="1150" y1="393" x2="1040" y2="393" stroke="#1d3557" stroke-width="1.5"/>
+
+  <!-- ── OUTPUTS ── -->
+
+  <!-- Phase 1 output arrow -->
+  <line x1="330" y1="376" x2="330" y2="412" stroke="#2d6a4f" stroke-width="2" marker-end="url(#arr3)"/>
+
+  <!-- Phase 1 output box -->
+  <rect x="80" y="412" width="500" height="80" rx="8" fill="#d8f3dc" stroke="#2d6a4f" stroke-width="1.5"/>
+  <text x="330" y="436" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b4332">📦  Phase 1 Key Outputs</text>
+  <text x="330" y="456" text-anchor="middle" font-size="11" fill="#1b4332">Top 10 low-stock products · Priority restock list (CTE)</text>
+  <text x="330" y="472" text-anchor="middle" font-size="11" fill="#1b4332">Product revenue ranking · Top 10 VIP customers by profit</text>
+  <text x="330" y="488" text-anchor="middle" font-size="11" fill="#1b4332">File: stores_analysis.sql + stores_analysis_notebook.md</text>
+
+  <!-- Phase 2 output arrow -->
+  <line x1="1040" y1="500" x2="1040" y2="532" stroke="#1d3557" stroke-width="2" marker-end="url(#arr4)"/>
+
+  <!-- Phase 2 output box -->
+  <rect x="820" y="532" width="520" height="80" rx="8" fill="#d6e4f7" stroke="#1d3557" stroke-width="1.5"/>
+  <text x="1080" y="556" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d3557">📊  Phase 2 Key Outputs</text>
+  <text x="1080" y="576" text-anchor="middle" font-size="11" fill="#1d3557">Sales rep ranking · Office performance · Org chart (self-join)</text>
+  <text x="1080" y="592" text-anchor="middle" font-size="11" fill="#1d3557">Monthly revenue trends · Customer tiers · 15 churn-risk customers</text>
+  <text x="1080" y="608" text-anchor="middle" font-size="11" fill="#1d3557">File: phase2_advanced_analytics.sql + _notebook.md</text>
+
+  <!-- ── BOTTOM STRATEGY BOX ── -->
+  <line x1="330" y1="492" x2="330" y2="660" stroke="#2d6a4f" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="330" y1="660" x2="700" y2="660" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="1080" y1="612" x2="1080" y2="660" stroke="#1d3557" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="1080" y1="660" x2="700" y2="660" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="700" y1="660" x2="700" y2="675" stroke="#333" stroke-width="2" marker-end="url(#arr5)"/>
+
+  <rect x="300" y="675" width="800" height="60" rx="10" fill="#1a1a2e"/>
+  <text x="700" y="701" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">💡  Business Strategy Recommendations</text>
+  <text x="700" y="722" text-anchor="middle" font-size="12" fill="#aab4c8">Restock priority · VIP marketing · Rep incentives · Q4 planning · Re-engagement campaigns</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- ── PLOTLY DASH DASHBOARD PREVIEW ──                  -->
+  <!-- ══════════════════════════════════════════════════════ -->
+
+  <!-- Section divider -->
+  <line x1="100" y1="752" x2="1300" y2="752" stroke="#ddd" stroke-width="1.5"/>
+  <!-- Arrow from strategy box to dashboard section -->
+  <line x1="700" y1="735" x2="700" y2="764" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr6)"/>
+  <!-- Section header -->
+  <text x="700" y="782" text-anchor="middle" font-size="13" font-weight="bold" fill="#444">📈  Plotly Dash — Interactive Dashboard Output</text>
+
+  <!-- ── Browser frame ── -->
+  <rect x="130" y="793" width="1140" height="172" rx="10" fill="#dde1e8" stroke="#bbb" stroke-width="1.5"/>
+  <!-- Chrome bar -->
+  <rect x="130" y="793" width="1140" height="28" rx="10" fill="#c8cdd8"/>
+  <rect x="130" y="807" width="1140" height="14" fill="#c8cdd8"/>
+  <!-- Traffic-light dots -->
+  <circle cx="154" cy="807" r="5.5" fill="#ff5f57"/>
+  <circle cx="173" cy="807" r="5.5" fill="#febc2e"/>
+  <circle cx="192" cy="807" r="5.5" fill="#28c840"/>
+  <!-- URL bar -->
+  <rect x="215" y="799" width="640" height="16" rx="4" fill="#fff" stroke="#bbb" stroke-width="0.8"/>
+  <text x="535" y="811" text-anchor="middle" font-size="9.5" fill="#666">http://localhost:8050  —  Scale Model Car Store Analytics</text>
+
+  <!-- Dashboard content area (dark theme) -->
+  <rect x="130" y="821" width="1140" height="144" fill="#1a1a2e" rx="0"/>
+
+  <!-- Dash top navbar -->
+  <rect x="130" y="821" width="1140" height="22" fill="#252542"/>
+  <text x="700" y="836" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#c0c8ff">📊  Scale Model Car Store — Analytics Dashboard</text>
+
+  <!-- ── Panel 1: Monthly Revenue Bar Chart ── -->
+  <rect x="142" y="846" width="348" height="112" rx="5" fill="#20203a" stroke="#383860" stroke-width="1"/>
+  <text x="316" y="861" text-anchor="middle" font-size="9" fill="#9aa0cc">Monthly Revenue ($)</text>
+  <!-- Bars -->
+  <rect x="160" y="906" width="26" height="44" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <rect x="194" y="895" width="26" height="55" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <rect x="228" y="912" width="26" height="38" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <rect x="262" y="890" width="26" height="60" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <rect x="296" y="901" width="26" height="49" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <rect x="330" y="878" width="26" height="72" rx="2" fill="#50c8a0" opacity="0.95"/>
+  <rect x="364" y="894" width="26" height="56" rx="2" fill="#4a90e2" opacity="0.85"/>
+  <!-- x-axis -->
+  <line x1="150" y1="950" x2="400" y2="950" stroke="#444" stroke-width="1"/>
+  <text x="173" y="957" font-size="7" fill="#666" text-anchor="middle">Jan</text>
+  <text x="207" y="957" font-size="7" fill="#666" text-anchor="middle">Feb</text>
+  <text x="241" y="957" font-size="7" fill="#666" text-anchor="middle">Mar</text>
+  <text x="275" y="957" font-size="7" fill="#666" text-anchor="middle">Apr</text>
+  <text x="309" y="957" font-size="7" fill="#666" text-anchor="middle">May</text>
+  <text x="343" y="957" font-size="7" fill="#50c8a0" text-anchor="middle">Jun ▲</text>
+  <text x="377" y="957" font-size="7" fill="#666" text-anchor="middle">Jul</text>
+
+  <!-- ── Panel 2: Top Customers Horizontal Bar ── -->
+  <rect x="500" y="846" width="348" height="112" rx="5" fill="#20203a" stroke="#383860" stroke-width="1"/>
+  <text x="674" y="861" text-anchor="middle" font-size="9" fill="#9aa0cc">Top 5 Customers by Profit</text>
+  <!-- Horizontal bars -->
+  <text x="510" y="878" font-size="8" fill="#9aa0cc">Euro+ Shop</text>
+  <rect x="575" y="869" width="108" height="11" rx="2" fill="#50c8a0" opacity="0.9"/>
+  <text x="687" y="878" font-size="8" fill="#aaa">$220k</text>
+
+  <text x="510" y="895" font-size="8" fill="#9aa0cc">Mini Wheels</text>
+  <rect x="575" y="886" width="90" height="11" rx="2" fill="#50c8a0" opacity="0.8"/>
+  <text x="669" y="895" font-size="8" fill="#aaa">$184k</text>
+
+  <text x="510" y="912" font-size="8" fill="#9aa0cc">Classic Store</text>
+  <rect x="575" y="903" width="74" height="11" rx="2" fill="#50c8a0" opacity="0.7"/>
+  <text x="653" y="912" font-size="8" fill="#aaa">$156k</text>
+
+  <text x="510" y="929" font-size="8" fill="#9aa0cc">Dragon Co.</text>
+  <rect x="575" y="920" width="57" height="11" rx="2" fill="#4a90e2" opacity="0.8"/>
+  <text x="636" y="929" font-size="8" fill="#aaa">$120k</text>
+
+  <text x="510" y="946" font-size="8" fill="#9aa0cc">Signal Gift</text>
+  <rect x="575" y="937" width="43" height="11" rx="2" fill="#4a90e2" opacity="0.7"/>
+  <text x="622" y="946" font-size="8" fill="#aaa">$92k</text>
+
+  <!-- ── Panel 3: Customer Segments Donut ── -->
+  <rect x="858" y="846" width="400" height="112" rx="5" fill="#20203a" stroke="#383860" stroke-width="1"/>
+  <text x="1058" y="861" text-anchor="middle" font-size="9" fill="#9aa0cc">Customer Segments</text>
+
+  <!-- Donut chart using stroke-dasharray technique -->
+  <!-- r=28, circumference = 2*PI*28 = 175.9 -->
+  <!-- Segments: Platinum 12%=21.1, Gold 28%=49.3, Silver 35%=61.6, Bronze 25%=44.0 -->
+  <!-- Background ring -->
+  <circle cx="928" cy="910" r="28" fill="none" stroke="#2a2a45" stroke-width="14"/>
+  <!-- Platinum 12% — starts at top (rotate -90) -->
+  <circle cx="928" cy="910" r="28" fill="none" stroke="#ffd700" stroke-width="14"
+    stroke-dasharray="21.1 154.8" transform="rotate(-90, 928, 910)"/>
+  <!-- Gold 28% — starts after Platinum (rotate -90 + 43.2 = -46.8) -->
+  <circle cx="928" cy="910" r="28" fill="none" stroke="#50c8a0" stroke-width="14"
+    stroke-dasharray="49.3 126.6" transform="rotate(-46.8, 928, 910)"/>
+  <!-- Silver 35% — starts after Gold (rotate -46.8 + 100.8 = 54) -->
+  <circle cx="928" cy="910" r="28" fill="none" stroke="#4a90e2" stroke-width="14"
+    stroke-dasharray="61.6 114.3" transform="rotate(54, 928, 910)"/>
+  <!-- Bronze 25% — starts after Silver (rotate 54 + 126 = 180) -->
+  <circle cx="928" cy="910" r="28" fill="none" stroke="#ff7c7c" stroke-width="14"
+    stroke-dasharray="44.0 131.9" transform="rotate(180, 928, 910)"/>
+  <!-- Centre hole fill -->
+  <circle cx="928" cy="910" r="17" fill="#20203a"/>
+
+  <!-- Legend -->
+  <rect x="975" y="874" width="9" height="9" rx="2" fill="#ffd700"/>
+  <text x="988" y="882" font-size="8.5" fill="#ccc">Platinum  12%</text>
+  <rect x="975" y="890" width="9" height="9" rx="2" fill="#50c8a0"/>
+  <text x="988" y="898" font-size="8.5" fill="#ccc">Gold         28%</text>
+  <rect x="975" y="906" width="9" height="9" rx="2" fill="#4a90e2"/>
+  <text x="988" y="914" font-size="8.5" fill="#ccc">Silver        35%</text>
+  <rect x="975" y="922" width="9" height="9" rx="2" fill="#ff7c7c"/>
+  <text x="988" y="930" font-size="8.5" fill="#ccc">Bronze      25%</text>
+  <rect x="975" y="938" width="9" height="9" rx="2" fill="#ff8c42"/>
+  <text x="988" y="946" font-size="8.5" fill="#ff8c42">⚠ Churn Risk: 15 customers</text>
+
+  <!-- ── ARROWHEAD MARKERS ── -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#999"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1d3557"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2d6a4f"/>
+    </marker>
+    <marker id="arr4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1d3557"/>
+    </marker>
+    <marker id="arr5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#333"/>
+    </marker>
+    <marker id="arr6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#777"/>
+    </marker>
+  </defs>
+
+</svg>
