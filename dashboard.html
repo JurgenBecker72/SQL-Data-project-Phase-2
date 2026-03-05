@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2 Analytics — Scale Model Car Store</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#1a1a2e;color:#e0e4ff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh}
+  header{background:#252542;border-bottom:2px solid #7c6fff;padding:16px 36px;display:flex;align-items:center;justify-content:space-between}
+  header h1{font-size:17px;font-weight:700;color:#e0e4ff}
+  header span{font-size:11px;color:#9aa0cc}
+  .kpi-strip{display:flex;gap:14px;padding:22px 36px 0}
+  .kpi{flex:1;background:#20203a;border:1px solid #383860;border-radius:8px;padding:14px 18px;text-align:center}
+  .kpi-val{font-size:24px;font-weight:700;color:#50c8a0}
+  .kpi-val.gold{color:#ffd700}
+  .kpi-val.purple{color:#7c6fff}
+  .kpi-val.red{color:#ff7c7c}
+  .kpi-lbl{font-size:10.5px;color:#9aa0cc;margin-top:3px}
+  .tabs{display:flex;gap:0;margin:22px 36px 0;border-bottom:1px solid #383860}
+  .tab{padding:10px 22px;cursor:pointer;color:#9aa0cc;font-size:13px;border-bottom:3px solid transparent;transition:all .2s}
+  .tab:hover{color:#e0e4ff}
+  .tab.active{color:#e0e4ff;border-bottom:3px solid #7c6fff;background:#20203a;border-radius:6px 6px 0 0}
+  .panel{display:none;padding:22px 36px 36px}
+  .panel.active{display:block}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px}
+  .card{background:#20203a;border:1px solid #383860;border-radius:10px;padding:18px}
+  .card-full{background:#20203a;border:1px solid #383860;border-radius:10px;padding:18px;margin-bottom:18px}
+  .card h3{font-size:12px;font-weight:600;color:#7c6fff;letter-spacing:.04em;margin-bottom:12px;text-transform:uppercase}
+  table{width:100%;border-collapse:collapse;font-size:11.5px}
+  th{background:#1a1a2e;color:#7c6fff;padding:7px 10px;text-align:left;font-weight:600;border-bottom:1px solid #383860}
+  td{padding:6px 10px;border-bottom:1px solid #2a2a45;color:#ccd0ee}
+  tr:hover td{background:#252542}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+  .badge.Platinum{background:#3d3200;color:#ffd700}
+  .badge.Gold{background:#0d3025;color:#50c8a0}
+  .badge.Silver{background:#0d1e35;color:#4a90e2}
+  .badge.Bronze{background:#3d0d0d;color:#ff7c7c}
+  select{background:#252542;color:#e0e4ff;border:1px solid #383860;border-radius:6px;padding:6px 10px;font-size:12px;margin-bottom:12px;cursor:pointer}
+  .finding{background:#1e2a1e;border-left:3px solid #50c8a0;padding:8px 14px;margin-top:10px;border-radius:0 6px 6px 0;font-size:11.5px;color:#aad4bb;line-height:1.6}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <span style="font-size:18px">📊 </span>
+    <b>Scale Model Car Store</b>
+    <span style="color:#9aa0cc;margin-left:8px;font-size:13px">· Phase 2 Advanced Analytics</span>
+  </div>
+  <span>stores.db · 2003–2005 · AX Consult Group</span>
+</header>
+
+<div class="kpi-strip" id="kpis"></div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('reps',this)">👤 Sales Reps &amp; Offices</div>
+  <div class="tab" onclick="showTab('revenue',this)">📈 Revenue Trends</div>
+  <div class="tab" onclick="showTab('segments',this)">🎯 Customer Segments</div>
+</div>
+
+<!-- TAB 1 -->
+<div class="panel active" id="tab-reps">
+  <div class="grid2">
+    <div class="card"><h3>Sales Rep — Total Profit</h3><div id="ch-rep"></div>
+      <div class="finding">💡 <b>Gerard Hernandez</b> (Paris) leads at $504K with only 7 customers — highest profit-per-customer ratio on the team.</div>
+    </div>
+    <div class="card"><h3>Office Performance — Total Profit</h3><div id="ch-off"></div>
+      <div class="finding">💡 <b>Paris</b> generates $1.24M — more than double any other office, driven by 4 reps across 28 customers.</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Order Fulfilment Time (Avg Days)</h3><div id="ch-ship"></div>
+      <div class="finding">💡 Average fulfilment is <b>3.8 days</b>. A 65-day max for one shipped order is an outlier worth investigating.</div>
+    </div>
+    <div class="card" style="overflow:auto"><h3>Management Hierarchy — Self-Join</h3><div id="tbl-hier"></div></div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="panel" id="tab-revenue">
+  <div class="card-full"><h3>Monthly Revenue — 2003 to 2005</h3><div id="ch-monthly"></div>
+    <div class="finding">💡 <b>November</b> is the peak month in both 2003 and 2004 — nearly 8× higher than January. Strong Q4 seasonality.</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Profit by Product Line — Annual</h3><div id="ch-pl"></div>
+      <div class="finding">💡 <b>Classic Cars</b> dominates every year — ~40% of total profit. Trains consistently underperform.</div>
+    </div>
+    <div class="card" style="overflow:auto"><h3>Monthly Revenue Detail</h3><div id="tbl-monthly"></div></div>
+  </div>
+</div>
+
+<!-- TAB 3 -->
+<div class="panel" id="tab-segments">
+  <div class="grid2">
+    <div class="card"><h3>Customer Segments — Count</h3><div id="ch-donut"></div></div>
+    <div class="card"><h3>Segment Total Profit</h3><div id="ch-seg-bar"></div>
+      <div class="finding">💡 Just <b>2 Platinum customers</b> generate $563K — more than the entire Bronze tier of 17 customers.</div>
+    </div>
+  </div>
+  <div class="card-full">
+    <h3>All Customers — Segmented</h3>
+    <select id="seg-filter" onchange="filterTable()">
+      <option value="All">All Segments</option>
+      <option value="Platinum">Platinum</option>
+      <option value="Gold">Gold</option>
+      <option value="Silver">Silver</option>
+      <option value="Bronze">Bronze</option>
+    </select>
+    <div id="tbl-cust" style="overflow:auto;max-height:320px"></div>
+  </div>
+  <div class="card-full">
+    <h3>⚠ Churn Risk — Dormant Customers (&gt;180 Days)</h3>
+    <div class="grid2" style="margin-top:10px">
+      <div id="ch-dormant"></div>
+      <div id="tbl-dormant" style="overflow:auto"></div>
+    </div>
+    <div class="finding">💡 <b>Saveley &amp; Henriot</b> (Gold tier, Lyon) is the highest-value re-engagement target — 456 days dormant.</div>
+  </div>
+</div>
+
+<script>
+const D = {"rep": {"x": [504644.71, 435208.35, 340727.9, 290203.59, 276659.25, 269596.09, 234891.07, 230811.75, 222207.18, 197879.23, 194839.92, 181181.8, 156878.63, 152119.31, 138031.47], "y": ["Gerard Hernandez", "Leslie Jennings", "Pamela Castillo", "Larry Bott", "Barry Jones", "George Vanauf", "Loui Bondur", "Peter Marsh", "Andy Fixter", "Steve Patterson", "Foon Yue Tseng", "Mami Nishi", "Martin Gerard", "Julie Firrelli", "Leslie Thompson"], "office": ["Paris", "San Francisco", "Paris", "London", "London", "NYC", "Paris", "Sydney", "Sydney", "Boston", "NYC", "Tokyo", "Paris", "Boston", "San Francisco"], "customers": [7, 6, 10, 8, 9, 8, 6, 5, 5, 6, 6, 5, 5, 6, 6], "orders": [43, 34, 31, 22, 25, 22, 20, 19, 19, 18, 17, 16, 12, 14, 14]}, "off": {"city": ["Paris", "San Francisco", "London", "NYC", "Sydney", "Boston", "Tokyo"], "profit": [1237142.31, 573239.82, 566862.84, 464436.01, 453018.93, 349998.54, 181181.8], "country": ["France", "USA", "UK", "USA", "Australia", "USA", "Japan"], "reps": [4, 2, 2, 2, 2, 2, 1], "cust": [28, 12, 17, 14, 10, 12, 5]}, "monthly": {"period": ["2003-01-01", "2003-02-01", "2003-03-01", "2003-04-01", "2003-05-01", "2003-06-01", "2003-07-01", "2003-08-01", "2003-09-01", "2003-10-01", "2003-11-01", "2003-12-01", "2004-01-01", "2004-02-01", "2004-03-01", "2004-04-01", "2004-05-01", "2004-06-01", "2004-07-01", "2004-08-01", "2004-09-01", "2004-10-01", "2004-11-01", "2004-12-01", "2005-01-01", "2005-02-01", "2005-03-01", "2005-04-01", "2005-05-01"], "revenue": [116692.77, 128403.64, 160517.14, 185848.59, 179435.55, 150470.77, 201940.36, 178257.11000000002, 236697.85, 470169.12, 965061.55, 276723.25, 292385.21, 289502.84, 217691.26, 187575.77, 206880.09, 213092.46, 325563.49, 419327.09, 283799.8, 500233.86, 979291.98, 428838.17, 307737.02, 317192.17, 359711.96, 344820.62, 441474.94], "year": ["2003", "2003", "2003", "2003", "2003", "2003", "2003", "2003", "2003", "2003", "2003", "2003", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2005", "2005", "2005", "2005", "2005"]}, "pl": {"year": ["2003", "2003", "2003", "2003", "2003", "2003", "2003", "2004", "2004", "2004", "2004", "2004", "2004", "2004", "2005", "2005", "2005", "2005", "2005", "2005", "2005"], "line": ["Classic Cars", "Motorcycles", "Planes", "Ships", "Trains", "Trucks and Buses", "Vintage Cars", "Classic Cars", "Motorcycles", "Planes", "Ships", "Trains", "Trucks and Buses", "Vintage Cars", "Classic Cars", "Motorcycles", "Planes", "Ships", "Trains", "Trucks and Buses", "Vintage Cars"], "profit": [540176.33, 144307.16, 110166.9, 79348.56, 22896.51, 147415.65, 251750.18, 673958.15, 222485.41, 171794.41, 121444.93, 30590.05, 182082.2, 337219.36, 280523.06, 101563.63, 63934.73, 39335.61, 8771.88, 71055.37, 130691.89]}, "seg": {"segment": ["Bronze", "Gold", "Platinum", "Silver"], "n": [17, 15, 2, 64], "total": [233260.93, 866550.29, 544091.88, 2087608.87]}, "cp": {"name": ["Euro+ Shopping Channel", "Mini Gifts Distributors Ltd.", "Muscle Machine Inc", "Australian Collectors, Co.", "La Rochelle Gifts", "Dragon Souveniers, Ltd.", "AV Stores, Co.", "Down Under Souveniers, Inc", "The Sharp Gifts Warehouse", "Corporate Gift Ideas Co.", "Salzburg Collectables", "Anna's Decorations, Ltd", "Saveley & Henriot, Co.", "Reims Collectables", "Souveniers And Things Co.", "Rovelli Gifts", "Danish Wholesale Imports", "Corrida Auto Replicas, Ltd", "L'ordine Souveniers", "Online Diecast Creations Co.", "Kelly's Gift Shop", "Tokyo Collectables, Ltd", "Vida Sport, Ltd", "Land of Toys Inc.", "Technics Stores Inc.", "Baane Mini Imports", "Gift Depot Inc.", "Handji Gifts& Co", "Herkku Gifts", "Diecast Classics Inc.", "Toys4GrownUps.com", "Suominen Souveniers", "Mini Creations Ltd.", "Toys of Finland, Co.", "Auto Canal+ Petit", "Extreme Desk Decorations, Ltd", "Oulu Toy Supplies, Inc.", "FunGiftIdeas.com", "Toms Spezialit\u00e4ten, Ltd", "Marta's Replicas Co.", "Cruz & Sons Co.", "Heintze Collectables", "La Corne D'abondance, Co.", "Amica Models & Co.", "Motor Mint Distributors Inc.", "Gifts4AllAges.com", "Tekni Collectables Inc.", "Mini Classics", "Stylish Desk Decors, Co.", "Collectable Mini Designs Co.", "Mini Caravy", "Signal Gift Stores", "Scandinavian Gift Ideas", "Super Scale Inc.", "Collectables For Less Inc.", "Canadian Gift Exchange Network", "Lyon Souveniers", "Vitachrome Inc.", "Mini Wheels Co.", "Blauer See Auto, Co.", "Marseille Mini Autos", "Daedalus Designs Imports", "giftsbymail.co.uk", "Classic Legends Inc.", "UK Collectables, Ltd.", "Petit Auto", "Qu\u00e9bec Home Shopping Network", "Norway Gifts By Mail, Co.", "Diecast Collectables", "Volvo Model Replicas, Co", "Auto Associ\u00e9s & Cie.", "Osaka Souveniers Co.", "Online Mini Collectables", "Royal Canadian Collectables, Ltd.", "Enaco Distributors", "Alpha Cognac", "GiftsForHim.com", "Australian Gift Network, Co", "Australian Collectables, Ltd", "Iberia Gift Imports, Corp.", "Classic Gift Ideas, Inc", "Clover Collections, Co.", "Gift Ideas Corp.", "CAF Imports", "Mini Auto Werke", "Signal Collectibles Ltd.", "West Coast Collectables Co.", "King Kong Collectables, Co.", "Men 'R' US Retailers, Ltd.", "Cambridge Collectables Co.", "Microscale Inc.", "Bavarian Collectables Imports, Co.", "Royale Belge", "Double Decker Gift Stores, Ltd", "Atelier graphique", "Frau da Collezione", "Auto-Moto Classics Inc.", "Boards & Toys Co."], "profit": [307322.49, 236769.39, 72370.09, 70311.07, 60875.3, 60477.38, 60095.86, 60013.99, 55931.37, 55674.28, 54724.68, 54551.66, 53211.19, 52698.66, 52331.45, 52309.63, 50973.68, 49192.39, 48516.67, 45090.39, 43604.11, 43487.88, 43393.75, 41953.17, 41510.76, 41391.52, 41313.51, 41305.17, 40592.06, 40429.55, 40397.88, 40095.85, 39136.14, 38808.53, 38755.5, 38399.18, 38334.95, 36886.05, 36744.01, 36337.69, 35987.68, 34655.62, 34650.17, 34100.63, 33598.57, 32549.53, 32240.57, 31815.01, 31667.93, 31594.7, 31526.6, 31312.72, 30383.28, 29265.9, 28969.09, 28882.99, 28390.81, 28279.5, 28092.43, 27728.34, 27184.74, 27143.39, 26808.79, 26001.55, 25872.38, 25861.96, 25856.86, 25665.76, 25244.69, 25138.38, 24610.8, 24360.18, 24296.9, 24118.93, 24113.54, 23905.16, 23079.64, 22579.18, 22433.82, 21225.65, 20737.79, 19588.29, 18957.41, 18953.3, 18358.11, 17230.12, 17186.93, 16868.68, 14928.37, 13734.7, 13066.02, 13033.35, 11693.99, 10868.04, 10063.8, 9532.93, 6586.02, 2610.87], "segment": ["Platinum", "Platinum", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Gold", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Silver", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze"], "city": ["Madrid", "San Rafael", "NYC", "Melbourne", "Nantes", "Singapore", "Manchester", "Auckland  ", "San Jose", "San Francisco", "Salzburg", "North Sydney", "Lyon", "Reims", "Chatswood", "Bergamo", "Kobenhavn", "Madrid", "Reggio Emilia", "Nashua", "Auckland  ", "Minato-ku", "Gen\u00e8ve", "NYC", "Burlingame", "Stavern", "Bridgewater", "Singapore", "Bergen", "Allentown", "Pasadena", "Espoo", "New Bedford", "Helsinki", "Paris", "Wellington", "Oulu", "New Bedford", "K\u00f6ln", "Cambridge", "Makati City", "\u00c5rhus", "Paris", "Torino", "Philadelphia", "Boston", "Newark", "White Plains", "London", "San Diego", "Strasbourg", "Las Vegas", "Br\u00e4cke", "New Haven", "Brickhaven", "Vancouver", "Paris", "NYC", "San Francisco", "Frankfurt", "Marseille", "Lille", "Cowes", "NYC", "Liverpool", "Bruxelles", "Montr\u00e9al", "Oslo", "Boston", "Lule\u00e5", "Versailles", "Kita-ku", "Brickhaven", "Tsawassen", "Barcelona", "Toulouse", "Auckland", "South Brisbane", "Glen Waverly", "Sevilla", "Philadelphia", "Dublin", "Glendale", "Madrid", "Graz", "Brisbane", "Burbank", "Central Hong Kong", "Los Angeles", "Cambridge", "NYC", "Munich", "Charleroi", "London", "Nantes", "Milan", "Brickhaven", "Glendale"], "country": ["Spain", "USA", "USA", "Australia", "France", "Singapore", "UK", "New Zealand", "USA", "USA", "Austria", "Australia", "France", "France", "Australia", "Italy", "Denmark", "Spain", "Italy", "USA", "New Zealand", "Japan", "Switzerland", "USA", "USA", "Norway", "USA", "Singapore", "Norway  ", "USA", "USA", "Finland", "USA", "Finland", "France", "New Zealand", "Finland", "USA", "Germany", "USA", "Philippines", "Denmark", "France", "Italy", "USA", "USA", "USA", "USA", "UK", "USA", "France", "USA", "Sweden", "USA", "USA", "Canada", "France", "USA", "USA", "Germany", "France", "France", "UK", "USA", "UK", "Belgium", "Canada", "Norway  ", "USA", "Sweden", "France", "Japan", "USA", "Canada", "Spain", "France", "New Zealand", "Australia", "Australia", "Spain", "USA", "Ireland", "USA", "Spain", "Austria", "USA", "USA", "Hong Kong", "USA", "USA", "USA", "Germany", "Belgium", "UK", "France", "Italy", "USA", "USA"], "orders": [25, 17, 4, 5, 4, 5, 3, 5, 4, 4, 4, 4, 3, 5, 4, 3, 5, 3, 3, 3, 3, 4, 2, 3, 4, 4, 3, 4, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 3, 2, 3, 2, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 3, 2, 3, 3, 3, 4, 3, 2, 2, 3, 2, 3, 3, 2, 2, 4, 2, 2, 2, 2, 3, 3, 2, 3, 3, 2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 1, 4, 2, 3, 2, 3, 2]}, "dormant": {"name": ["King Kong Collectables, Co.", "Men 'R' US Retailers, Ltd.", "Double Decker Gift Stores, Ltd", "West Coast Collectables Co.", "Frau da Collezione", "Signal Collectibles Ltd.", "Daedalus Designs Imports", "Collectable Mini Designs Co.", "Saveley & Henriot, Co.", "CAF Imports", "Osaka Souveniers Co.", "Diecast Collectables", "Super Scale Inc.", "Cambridge Collectables Co.", "Royal Canadian Collectables, Ltd."], "days": [548, 509, 496, 489, 478, 477, 466, 461, 456, 439, 414, 401, 393, 389, 285], "segment": ["Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Bronze", "Silver", "Silver", "Gold", "Bronze", "Silver", "Silver", "Silver", "Bronze", "Silver"], "profit": [16868.68, 14928.37, 10868.04, 17186.93, 9532.93, 17230.12, 27143.39, 31594.7, 53211.19, 18953.3, 24360.18, 25244.69, 29265.9, 13734.7, 24118.93], "country": ["Hong Kong", "USA", "UK", "USA", "Italy", "USA", "France", "USA", "France", "Spain", "Japan", "USA", "USA", "USA", "Canada"]}, "ship": {"status": ["Cancelled", "Disputed", "Resolved", "Shipped"], "avg": [1.5, 5.0, 3.5, 3.8], "n": [2, 3, 4, 303]}, "hier": [{"employee": "Foon Yue Tseng", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "NYC"}, {"employee": "George Vanauf", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "NYC"}, {"employee": "Julie Firrelli", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "Boston"}, {"employee": "Leslie Jennings", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "San Francisco"}, {"employee": "Leslie Thompson", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "San Francisco"}, {"employee": "Steve Patterson", "jobTitle": "Sales Rep", "reports_to": "Anthony Bow", "mgr_title": "Sales Manager (NA)", "city": "Boston"}, {"employee": "Jeff Firrelli", "jobTitle": "VP Marketing", "reports_to": "Diane Murphy", "mgr_title": "President", "city": "San Francisco"}, {"employee": "Mary Patterson", "jobTitle": "VP Sales", "reports_to": "Diane Murphy", "mgr_title": "President", "city": "San Francisco"}, {"employee": "Barry Jones", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "London"}, {"employee": "Gerard Hernandez", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "Paris"}, {"employee": "Larry Bott", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "London"}, {"employee": "Loui Bondur", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "Paris"}, {"employee": "Martin Gerard", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "Paris"}, {"employee": "Pamela Castillo", "jobTitle": "Sales Rep", "reports_to": "Gerard Bondur", "mgr_title": "Sale Manager (EMEA)", "city": "Paris"}, {"employee": "Yoshimi Kato", "jobTitle": "Sales Rep", "reports_to": "Mami Nishi", "mgr_title": "Sales Rep", "city": "Tokyo"}, {"employee": "Anthony Bow", "jobTitle": "Sales Manager (NA)", "reports_to": "Mary Patterson", "mgr_title": "VP Sales", "city": "San Francisco"}, {"employee": "Gerard Bondur", "jobTitle": "Sale Manager (EMEA)", "reports_to": "Mary Patterson", "mgr_title": "VP Sales", "city": "Paris"}, {"employee": "Mami Nishi", "jobTitle": "Sales Rep", "reports_to": "Mary Patterson", "mgr_title": "VP Sales", "city": "Tokyo"}, {"employee": "William Patterson", "jobTitle": "Sales Manager (APAC)", "reports_to": "Mary Patterson", "mgr_title": "VP Sales", "city": "Sydney"}, {"employee": "Andy Fixter", "jobTitle": "Sales Rep", "reports_to": "William Patterson", "mgr_title": "Sales Manager (APAC)", "city": "Sydney"}, {"employee": "Peter Marsh", "jobTitle": "Sales Rep", "reports_to": "William Patterson", "mgr_title": "Sales Manager (APAC)", "city": "Sydney"}, {"employee": "Tom King", "jobTitle": "Sales Rep", "reports_to": "William Patterson", "mgr_title": "Sales Manager (APAC)", "city": "Sydney"}, {"employee": "Diane Murphy", "jobTitle": "President", "reports_to": "\u2014", "mgr_title": "\u2014", "city": "San Francisco"}], "kpi": {"total_profit": 3.83, "top_rep": "Gerard Hernandez", "top_off": "Paris", "n_churn": 15}};
+
+const BG='#20203a', GRID='#383860', TXT='#e0e4ff', SUB='#9aa0cc';
+const BASE={paper_bgcolor:BG,plot_bgcolor:BG,font:{color:TXT,family:'Segoe UI,Arial'},margin:{l:40,r:20,t:10,b:40}};
+const xaxis={gridcolor:GRID,zerolinecolor:GRID};
+const yaxis={gridcolor:GRID,zerolinecolor:GRID};
+const CFG={displayModeBar:false,responsive:true};
+
+// KPIs
+const kd=D.kpi;
+document.getElementById('kpis').innerHTML=`
+  <div class="kpi"><div class="kpi-val">${kd.total_profit}M</div><div class="kpi-lbl">Total Profit (all reps)</div></div>
+  <div class="kpi"><div class="kpi-val gold">${kd.top_rep}</div><div class="kpi-lbl">Top Sales Rep</div></div>
+  <div class="kpi"><div class="kpi-val purple">${kd.top_off}</div><div class="kpi-lbl">Top Office</div></div>
+  <div class="kpi"><div class="kpi-val red">${kd.n_churn}</div><div class="kpi-lbl">Churn-Risk Customers</div></div>
+`;
+
+// Sales rep bar
+Plotly.newPlot('ch-rep',[{
+  x:D.rep.x, y:D.rep.y, type:'bar', orientation:'h',
+  marker:{color:D.rep.x.map((v,i)=>i===0?'#50c8a0':'#4a90e2')},
+  text:D.rep.x.map(v=>'$'+Math.round(v/1000)+'k'), textposition:'outside',
+  hovertemplate:'<b>%{y}</b><br>Profit: $%{x:,.0f}<br>Office: %{customdata[0]}<br>Customers: %{customdata[1]}<extra></extra>',
+  customdata:D.rep.office.map((o,i)=>[o,D.rep.customers[i]])
+}],{...BASE,...{height:420,xaxis:{...xaxis,title:'Profit ($)'},yaxis:{...yaxis,autorange:'reversed'}}},CFG);
+
+// Office bar
+Plotly.newPlot('ch-off',[{
+  x:D.off.profit, y:D.off.city, type:'bar', orientation:'h',
+  marker:{color:'#7c6fff'},
+  text:D.off.profit.map(v=>'$'+Math.round(v/1000)+'k'), textposition:'outside',
+  hovertemplate:'<b>%{y}</b><br>%{customdata[0]}<br>Reps: %{customdata[1]} · Customers: %{customdata[2]}<br>Profit: $%{x:,.0f}<extra></extra>',
+  customdata:D.off.country.map((c,i)=>[c,D.off.reps[i],D.off.cust[i]])
+}],{...BASE,...{height:280,xaxis:{...xaxis,title:'Profit ($)'},yaxis:{...yaxis,autorange:'reversed'}}},CFG);
+
+// Fulfilment
+Plotly.newPlot('ch-ship',[{
+  x:D.ship.status, y:D.ship.avg, type:'bar',
+  marker:{color:D.ship.status.map(s=>s==='Shipped'?'#50c8a0':'#ff8c42')},
+  text:D.ship.avg.map(v=>v+' days'), textposition:'outside',
+  hovertemplate:'<b>%{x}</b><br>Avg: %{y} days<br>Orders: %{customdata}<extra></extra>',
+  customdata:D.ship.n
+}],{...BASE,...{height:200,yaxis:{...yaxis,title:'Avg Days'}}},CFG);
+
+// Hierarchy table
+(function(){
+  const cols=['employee','jobTitle','reports_to','mgr_title','city'];
+  const hdrs=['Employee','Job Title','Reports To','Manager Title','Office'];
+  let h=`<table><thead><tr>${hdrs.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+  D.hier.forEach(r=>{
+    const jt=r.jobTitle||'';
+    const clr=jt==='President'?'#ffd700':jt.includes('Manager')?'#7c6fff':TXT;
+    h+=`<tr>${cols.map(c=>`<td style="color:${c==='employee'?clr:c==='jobTitle'?clr:TXT}">${r[c]||'—'}</td>`).join('')}</tr>`;
+  });
+  document.getElementById('tbl-hier').innerHTML=h+'</tbody></table>';
+})();
+
+// Monthly revenue
+(function(){
+  const years=[...new Set(D.monthly.year)];
+  const pal={'2003':'#4a90e2','2004':'#50c8a0','2005':'#7c6fff'};
+  const traces=years.map(yr=>{
+    const idx=D.monthly.year.map((y,i)=>y===yr?i:-1).filter(i=>i>=0);
+    return {x:idx.map(i=>D.monthly.period[i]),y:idx.map(i=>D.monthly.revenue[i]),
+             mode:'lines+markers',name:yr,line:{color:pal[yr]||'#fff',width:2},marker:{size:5},
+             hovertemplate:`<b>${yr}</b><br>Revenue: $%{y:,.0f}<extra></extra>`};
+  });
+  Plotly.newPlot('ch-monthly',traces,{...BASE,...{height:280,xaxis:{...xaxis},yaxis:{...yaxis,title:'Revenue ($)'},legend:{bgcolor:BG}}},CFG);
+})();
+
+// Product line grouped bar
+(function(){
+  const years=[...new Set(D.pl.year)];
+  const lines=[...new Set(D.pl.line)];
+  const pal={'2003':'#4a90e2','2004':'#50c8a0','2005':'#7c6fff'};
+  const traces=years.map(yr=>{
+    const idx=D.pl.year.map((y,i)=>y===yr?i:-1).filter(i=>i>=0);
+    return {x:idx.map(i=>D.pl.line[i]),y:idx.map(i=>D.pl.profit[i]),
+             type:'bar',name:yr,marker:{color:pal[yr]||'#fff'},
+             hovertemplate:`<b>%{x}</b> ${yr}<br>Profit: $%{y:,.0f}<extra></extra>`};
+  });
+  Plotly.newPlot('ch-pl',traces,{...BASE,...{barmode:'group',height:280,xaxis:{...xaxis},yaxis:{...yaxis,title:'Profit ($)'},legend:{bgcolor:BG}}},CFG);
+})();
+
+// Monthly table
+(function(){
+  let h='<table><thead><tr><th>Year</th><th>Period</th><th>Revenue ($)</th><th>Profit ($)</th></tr></thead><tbody>';
+  for(let i=D.monthly.period.length-1;i>=0;i--){
+    h+=`<tr><td>${D.monthly.year[i]}</td><td>${D.monthly.period[i].slice(0,7)}</td><td>${Number(D.monthly.revenue[i]).toLocaleString()}</td><td>${Number((D.monthly.revenue[i]*0.4).toFixed(0)).toLocaleString()}</td></tr>`;
+  }
+  document.getElementById('tbl-monthly').innerHTML=h+'</tbody></table>';
+})();
+
+// Segment donut
+const segOrder=['Platinum','Gold','Silver','Bronze'];
+const segCol={'Platinum':'#ffd700','Gold':'#50c8a0','Silver':'#4a90e2','Bronze':'#ff7c7c'};
+(function(){
+  const ordered=segOrder.map(s=>{
+    const i=D.seg.segment.indexOf(s);
+    return{s,n:i>=0?D.seg.n[i]:0,t:i>=0?D.seg.total[i]:0};
+  });
+  Plotly.newPlot('ch-donut',[{
+    labels:ordered.map(o=>o.s), values:ordered.map(o=>o.n),
+    type:'pie', hole:0.55,
+    marker:{colors:ordered.map(o=>segCol[o.s]),line:{color:'#1a1a2e',width:2}},
+    textinfo:'label+percent',
+    hovertemplate:'<b>%{label}</b><br>Customers: %{value}<br>%{percent}<extra></extra>'
+  }],{...BASE,...{height:280,showlegend:false}},CFG);
+})();
+
+// Segment profit bar
+(function(){
+  const ordered=segOrder.map(s=>{
+    const i=D.seg.segment.indexOf(s);
+    return{s,t:i>=0?D.seg.total[i]:0};
+  });
+  Plotly.newPlot('ch-seg-bar',[{
+    x:ordered.map(o=>o.s), y:ordered.map(o=>o.t),
+    type:'bar', marker:{color:ordered.map(o=>segCol[o.s])},
+    text:ordered.map(o=>'$'+Math.round(o.t/1000)+'k'), textposition:'outside',
+    hovertemplate:'<b>%{x}</b><br>Total Profit: $%{y:,.0f}<extra></extra>'
+  }],{...BASE,...{height:280,xaxis:{...xaxis},yaxis:{...yaxis,title:'Total Profit ($)'}}},CFG);
+})();
+
+// Customer table
+function renderCustTable(filter){
+  let rows=D.cp.name.map((n,i)=>{return{name:n,profit:D.cp.profit[i],seg:D.cp.segment[i],city:D.cp.city[i],country:D.cp.country[i],orders:D.cp.orders[i]}});
+  if(filter!=='All') rows=rows.filter(r=>r.seg===filter);
+  let h='<table><thead><tr><th>Customer</th><th>City</th><th>Country</th><th>Profit ($)</th><th>Orders</th><th>Segment</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    h+=`<tr><td>${r.name}</td><td>${r.city}</td><td>${r.country}</td><td>${Number(r.profit).toLocaleString()}</td><td>${r.orders}</td><td><span class="badge ${r.seg}">${r.seg}</span></td></tr>`;
+  });
+  document.getElementById('tbl-cust').innerHTML=h+'</tbody></table>';
+}
+renderCustTable('All');
+function filterTable(){ renderCustTable(document.getElementById('seg-filter').value); }
+
+// Dormant bar
+Plotly.newPlot('ch-dormant',[{
+  x:D.dormant.days, y:D.dormant.name.map(n=>n.length>22?n.slice(0,22)+'…':n),
+  type:'bar', orientation:'h',
+  marker:{color:D.dormant.segment.map(s=>segCol[s]||SUB)},
+  text:D.dormant.segment, textposition:'inside',
+  hovertemplate:'<b>%{y}</b><br>Days inactive: %{x}<br>Segment: %{text}<br>Country: %{customdata[0]}<br>Profit: $%{customdata[1]:,.0f}<extra></extra>',
+  customdata:D.dormant.country.map((c,i)=>[c,D.dormant.profit[i]])
+}],{...BASE,...{height:380,xaxis:{...xaxis,title:'Days Since Last Order'},yaxis:{...yaxis,autorange:'reversed'},margin:{l:180,r:20,t:10,b:40}}},CFG);
+
+// Dormant table
+(function(){
+  let h='<table><thead><tr><th>Customer</th><th>Country</th><th>Segment</th><th>Days</th><th>Profit ($)</th></tr></thead><tbody>';
+  D.dormant.name.forEach((n,i)=>{
+    h+=`<tr><td>${n}</td><td>${D.dormant.country[i]}</td><td><span class="badge ${D.dormant.segment[i]}">${D.dormant.segment[i]}</span></td><td>${D.dormant.days[i]}</td><td>${Number(D.dormant.profit[i]).toLocaleString()}</td></tr>`;
+  });
+  document.getElementById('tbl-dormant').innerHTML=h+'</tbody></table>';
+})();
+
+// Tab switching
+function showTab(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
