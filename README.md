@@ -1,9 +1,7 @@
 # Scale Model Car Store SQL Analysis
 # Phase 1 & 2 – Inventory, Customer & Commercial Intelligence
 
-![Design Overview](design_overview.svg)
-
----
+![Infographic: Design & Insights Overview](design_overview.svg)
 
 This repository contains a two-phase SQL analysis of a scale model car retailer using a relational SQLite database (`stores.db`). The project answers key business questions around **inventory management**, **product performance**, **customer value**, **sales rep effectiveness** and **revenue trends** — providing actionable recommendations to inform sales strategy and commercial decision-making.
 
